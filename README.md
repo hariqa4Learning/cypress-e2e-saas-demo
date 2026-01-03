@@ -1,3 +1,4 @@
+![Cypress E2E Tests](https://github.com/hariqa4Learning/cypress-e2e-saas-demo/actions/workflows/cypress.yml/badge.svg)
 # Cypress E2E Automation – Sauce Demo
 
 This project demonstrates a **production-ready Cypress E2E automation framework**
