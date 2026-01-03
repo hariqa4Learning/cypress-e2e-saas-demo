@@ -1,5 +1,14 @@
 {
   "devDependencies": {
-    "cypress": "^15.8.1"
-  }
+    "cypress": "^15.8.1",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^4.4.1",
+    "mochawesome-report-generator": "^6.3.2"
+  },
+  "scripts": {
+  "cypress:run": "cypress run",
+  "report:merge": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
+  "report:html": "marge cypress/reports/report.json -o cypress/reports/html",
+  "test:ci": "npm run cypress:run && npm run report:merge && npm run report:html"
+}
 }
