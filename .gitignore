@@ -10,3 +10,7 @@ cypress/screenshots/
 
 # OS
 .DS_Store
+# Cypress artifacts
+cypress/reports/
+cypress/videos/
+cypress/screenshots/
