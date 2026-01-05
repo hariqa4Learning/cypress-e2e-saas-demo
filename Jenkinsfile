@@ -1,12 +1,7 @@
 pipeline {
   agent any
 
-  tools {
-    nodejs 'Node20'
-  }
-
   stages {
-
     stage('Checkout') {
       steps {
         checkout scm
@@ -15,6 +10,8 @@ pipeline {
 
     stage('Install Dependencies') {
       steps {
+        sh 'node -v'
+        sh 'npm -v'
         sh 'npm ci'
       }
     }
@@ -29,14 +26,6 @@ pipeline {
   post {
     always {
       archiveArtifacts artifacts: 'cypress/reports/**', fingerprint: true
-    }
-
-    success {
-      echo '✅ Cypress tests passed'
-    }
-
-    failure {
-      echo '❌ Cypress tests failed'
     }
   }
 }
