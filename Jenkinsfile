@@ -2,6 +2,18 @@ pipeline {
   agent any
 
   stages {
+
+    stage('Verify Runtime') {
+      steps {
+        sh '''
+          which node
+          node -v
+          which npm
+          npm -v
+        '''
+      }
+    }
+
     stage('Checkout') {
       steps {
         checkout scm
@@ -10,8 +22,6 @@ pipeline {
 
     stage('Install Dependencies') {
       steps {
-        sh 'node -v'
-        sh 'npm -v'
         sh 'npm ci'
       }
     }
