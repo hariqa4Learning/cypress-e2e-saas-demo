@@ -1,22 +1,22 @@
 pipeline {
   agent any
 
-  stages {
+  options {
+    timestamps()
+    retry(1)
+  }
 
-    stage('Verify Runtime') {
-      steps {
-        sh '''
-          which node
-          node -v
-          which npm
-          npm -v
-        '''
-      }
-    }
+  stages {
 
     stage('Checkout') {
       steps {
         checkout scm
+      }
+    }
+
+    stage('Clean Reports') {
+      steps {
+        sh 'rm -rf cypress/reports || true'
       }
     }
 
@@ -37,11 +37,13 @@ pipeline {
     always {
       archiveArtifacts artifacts: 'cypress/reports/**', fingerprint: true
     }
-  }
-  stage('Clean Reports') {
-  steps {
-    sh 'rm -rf cypress/reports || true'
-  }
-}
 
+    failure {
+      echo '❌ Cypress E2E tests failed'
+    }
+
+    success {
+      echo '✅ Cypress E2E tests passed'
+    }
+  }
 }
