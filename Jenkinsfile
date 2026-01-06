@@ -38,4 +38,10 @@ pipeline {
       archiveArtifacts artifacts: 'cypress/reports/**', fingerprint: true
     }
   }
+  stage('Clean Reports') {
+  steps {
+    sh 'rm -rf cypress/reports || true'
+  }
+}
+
 }
