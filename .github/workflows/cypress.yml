@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:   # ✅ allows manual run from UI
 
 jobs:
   cypress-run:
@@ -26,11 +27,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Run Cypress tests + generate report
+      # 4️⃣ Install Cypress (ensures binary present in CI)
+      - name: Install Cypress
+        run: npx cypress install
+
+      # 5️⃣ Run Cypress tests + generate report
       - name: Run Cypress tests and generate HTML report
         run: npm run test:ci
 
-      # 5️⃣ Upload HTML report as artifact
+      # 6️⃣ Upload HTML report as artifact
       - name: Upload Cypress HTML Report
         if: always()
         uses: actions/upload-artifact@v4
